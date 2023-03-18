@@ -40,18 +40,25 @@ The ETL script `etl.py` contains functions to process song files and log files s
 
 ## Exampley Queries for Song Play Analysis
 
-1. Find the top 10 most popular songs by play count:
+1. Find the total play count for each gender, also showing how many of each gender for further analysis:
 ```
-SELECT s.title, a.name, COUNT(*) as play_count
-FROM songplays sp
-JOIN songs s ON sp.song_id = s.song_id
-JOIN artists a ON sp.artist_id = a.artist_id
-GROUP BY s.title, a.name
-ORDER BY play_count DESC
-LIMIT 10;
+SELECT gender_stats.gender, play_count, user_count 
+FROM (SELECT u.gender, COUNT(*) as play_count 
+      FROM songplays sp JOIN users u ON sp.user_id = u.user_id 
+      GROUP BY u.gender) as gender_stats 
+JOIN (SELECT gender, COUNT(*) as user_count 
+      FROM users 
+      GROUP BY gender) as user_stats ON gender_stats.gender = user_stats.gender 
+ORDER BY play_count DESC;
 ```
+>>> * postgresql://student:***@127.0.0.1/sparkifydb
+2 rows affected.
 >>>
 
+| gender |  play_count |  user_count |
+| :---     |    ---: |    ---: |
+| F   |  4887    |  55    |
+| M     |  1933     |  41     |
 
 
 2. Find the number of active users by subscription level (free or paid):
