@@ -42,17 +42,47 @@ The ETL script `etl.py` contains functions to process song files and log files s
 
 1. Find the top 10 most popular songs by play count:
 ```
-
+SELECT s.title, a.name, COUNT(*) as play_count
+FROM songplays sp
+JOIN songs s ON sp.song_id = s.song_id
+JOIN artists a ON sp.artist_id = a.artist_id
+GROUP BY s.title, a.name
+ORDER BY play_count DESC
+LIMIT 10;
 ```
+>>>
+
+
 
 2. Find the number of active users by subscription level (free or paid):
 ```
-
+SELECT level, COUNT(DISTINCT user_id) as user_count
+FROM songplays
+GROUP BY level;
 ```
+>>> * postgresql://student:***@127.0.0.1/sparkifydb
+>>> 2 rows affected.
+| level |  user_count |
+| :---     |    ---: |
+| free   |  82    |
+| paid     |  22     |
 
 
 3. Find the top 5 busiest hours for song plays:
 ```
-
+SELECT t.hour, COUNT(*) as play_count
+FROM songplays sp
+JOIN time t ON sp.start_time = t.start_time
+GROUP BY t.hour
+ORDER BY play_count DESC
+LIMIT 5;
 ```
-
+>>> * postgresql://student:***@127.0.0.1/sparkifydb
+>>> 5 rows affected.
+| hour |  play_count |
+| :---     |    ---: |
+| 16   |  542    |
+| 18     |  498     |
+| 17   |  494    |
+| 15     |  477     |
+| 14   |  432    |
