@@ -62,6 +62,7 @@ GROUP BY level;
 ```
 >>> * postgresql://student:***@127.0.0.1/sparkifydb
 >>> 2 rows affected.
+
 | level |  user_count |
 | :---     |    ---: |
 | free   |  82    |
@@ -79,6 +80,7 @@ LIMIT 5;
 ```
 >>> * postgresql://student:***@127.0.0.1/sparkifydb
 >>> 5 rows affected.
+
 | hour |  play_count |
 | :---     |    ---: |
 | 16   |  542    |
