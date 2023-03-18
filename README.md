@@ -25,6 +25,7 @@ The database uses a star schema with a central fact table songplays and four dim
 
 5. time: Timestamps of records in songplays broken down into specific units (start_time, hour, day, week, month, year, weekday)
 
+https://r766469c826263xjupyterllyjhwqkl.udacity-student-workspaces.com/lab/tree/example_sql_queries.py 
 
 ## ETL Pipeline
 
